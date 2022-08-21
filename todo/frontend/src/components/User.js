@@ -9,8 +9,8 @@ class User extends React.Component {
     render() {
         return (
             <li className='user-row' key={this.props.username}>
-                <span className='user-cell'>{this.props.first_name}</span>
-                <span className='user-cell'>{this.props.last_name}</span>
+                <span className='user-cell'>{this.props.firstName}</span>
+                <span className='user-cell'>{this.props.lastName}</span>
                 <span className='user-cell'>{this.props.email}</span>
             </li>
         );

@@ -12,7 +12,7 @@ class UserTable extends React.Component {
         if (this.props.error) {
             return (<div>Unable to load all users: {this.props.error.message}</div>);
         }
-        const items = this.props.users.map((it) => (<User {...it} />));
+        const items = this.props.users.map((it) => (<User key={it.username} {...it} />));
         items.unshift(
             <li key='header' className='user-row user-table-header'>
                 <span>First name</span>
