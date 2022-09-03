@@ -20,16 +20,15 @@ from rest_framework import permissions
 from rest_framework.authtoken import views
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
-
 from project.views import ProjectModelViewSet, ToDoModelViewSet
 from user.views import UserViewSet
+from drf_yasg import openapi
 
 router = DefaultRouter()
 router.register('user', UserViewSet)
 router.register('projects', ProjectModelViewSet)
 router.register('todos', ToDoModelViewSet)
 
-from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(

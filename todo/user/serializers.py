@@ -1,5 +1,4 @@
 from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
-
 from .models import User
 
 
