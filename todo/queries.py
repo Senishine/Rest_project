@@ -37,3 +37,5 @@ response = requests.get('http://127.0.0.1:8000/api/projects/', headers=headers)
 response2 = requests.post(url, headers=headers, data=data)
 print(response2.status_code)
 print(response2.text)
+
+
