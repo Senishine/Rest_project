@@ -1,5 +1,6 @@
 import React from "react";
-
+import {Link} from 'react-router-dom';
+import delete_todo from './../App'
 
 class Todo extends React.Component {
 
@@ -44,10 +45,14 @@ class TodoTable extends React.Component {
                 {/* <span>Active</span> */}
                 <span>Project</span>
                 <span>Creator</span>
+                <button onClick={() => delete_todo(this.props.id)} type='button'>DELETE</button>
             </li>
         );
         return (
+            <>
             <ul>{items}</ul>
+            <Link to='/todo/create'>Create</Link>
+            </>   
         );
     }
 }
