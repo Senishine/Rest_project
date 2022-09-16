@@ -10,8 +10,10 @@ class UserViewSet(mixins.ListModelMixin,
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
 
-    def get_serializer_class(self):
-        if self.request.version == '2.0':
-            return UserModelSerializer
-        return UserModelSerializerTwoFields
+    # def get_serializer_class(self):
+    #     if self.request.version == '2.0':
+    #         return UserModelSerializer
+    #     return UserModelSerializerTwoFields
 
+    def get_serializer_class(self):
+        return UserModelSerializer
