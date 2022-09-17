@@ -1,0 +1,45 @@
+version: '3.1'
+services:
+  db:
+    container_name: database
+    image: postgres:13.1
+    privileged: true
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: django
+      POSTGRES_PASSWORD: 1
+      POSTGRES_DB: db
+  backend:
+    container_name: backend
+    build:
+      context: ./todo
+    environment:
+      POSTGRES_USER: django
+      POSTGRES_PASSWORD: 1
+      POSTGRES_DB: db
+      POSTGRES_HOST: db
+    expose:
+      - "8080"
+    command: bash -c "
+      ./wait-for-postgres.sh db db
+      && python manage.py migrate
+      && gunicorn todo.wsgi -b 0.0.0.0:8080
+      "
+    depends_on:
+      - db
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - "8000:80"
+    depends_on:
+      - backend
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - nginx
+

@@ -9,9 +9,13 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
+import django
+from django.utils.encoding import force_str
 
+django.utils.encoding.force_text = force_str
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -80,10 +84,25 @@ WSGI_APPLICATION = 'todo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+POSTGRES_USER = os.environ.get('POSTGRES_USER', 'django')
+POSTGRES_DB = os.environ.get('POSTGRES_DB', 'db')
+POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD', '1')
+POSTGRES_HOST = os.environ.get('POSTGRES_HOST', 'localhost')
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': POSTGRES_DB,
+        'PASSWORD': POSTGRES_PASSWORD,
+        'USER': POSTGRES_USER,
+        'HOST': POSTGRES_HOST,
+        'PORT': '5432',
     }
 }
 
@@ -128,8 +147,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
 
-CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+# CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = ['http://localhost']
 
 REST_FRAMEWORK = {
 

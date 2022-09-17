@@ -15,7 +15,7 @@ class ProjectPagination(PageNumberPagination):
 class ProjectModelViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    pagination_class = ProjectPagination
+    # pagination_class = ProjectPagination
 
     def get_queryset(self):
         name = self.request.query_params.get('name', '')
@@ -32,7 +32,7 @@ class ToDoPagination(PageNumberPagination):
 class ToDoModelViewSet(ModelViewSet):
     queryset = ToDo.objects.all()
     serializer_class = ToDoSerializer
-    pagination_class = ToDoPagination
+    # pagination_class = ToDoPagination
     filterset_class = TodoFilter
 
     def destroy(self, request, *args, **kwargs):
@@ -44,3 +44,5 @@ class ToDoModelViewSet(ModelViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
+
+
